@@ -19,7 +19,7 @@ function fixType() {
 
   //OBJECTS
   type UserType = {
-    sayHello: Function
+    sayHello: (message: string) => void,
     name: string
     age: number
     isSamurai: boolean
@@ -32,7 +32,7 @@ function fixType() {
   }
 
   let user: UserType = {
-    sayHello(message: string) {alert('Yo')},
+    sayHello(message) { alert('Yo ' + message) },
     name: "fed",
     age: 27,
     isSamurai: true,
@@ -42,12 +42,53 @@ function fixType() {
   };
   // console.log(user.age);
 
-  //function
-  function summ(a: number, b:number) {
-      return a + b;
+  //FUNCTION
+  function summ(a: number, b: number) {
+    return a + b;
   }
+  const summ2 = (a: number, b: number) => {
+    return a + b;
+  };//неявно типизированная
+  const summ3 = (a: number, b: number) => (number: any) => (a: number, b: number) => {
+    return a + b;
+  };//явно типизированная (избыточна)
   // summ(1, "2");
 }
+
+
+//получение описания TYPE исходя из полей  объекта, ОСЕБЕННОСТЬ typeof и (any)as(any) в typescript
+// 1) создание пустого объекта( иммитация что с сервера не пришли данные....) и добавлние as(type)- воспринимать как тип такойто...
+let initialState = {
+  name: null as string | null,
+  age: null as number | null,
+  isSamurai: null as boolean | null,
+  counter: null
+};
+
+// 2) создание TYPE по полям объекта
+export type InitialStateType = typeof initialState;
+
+// 3) создание new объекта по TYPE
+let state: InitialStateType = {
+  name: "dsf",
+  age: 23,
+  isSamurai: true,
+  counter: null
+}
+
+//еще немного о typeof
+const GET_TASKS = "APP/Get_TASKS";
+
+type ActionType = {
+  id: number
+  type: typeof GET_TASKS
+}
+
+let action: ActionType = {
+  id: 12,
+  type: GET_TASKS,
+}
+
 
 fixType();
 
