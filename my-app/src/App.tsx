@@ -18,17 +18,17 @@ function fixType() {
   // sex = "female";
 
   //OBJECTS
+  type AddressType = {
+    city?: string //НЕОБЯЗАТЕЛЬНОЕ ПОЛЕ
+    country: string //ОБЯЗАТЕЛЬНОЕ ПОЛЕ
+  }
+
   type UserType = {
-    sayHello: (message: string) => void,
+    sayHello: (message: string) => void
     name: string
     age: number
     isSamurai: boolean
     address: AddressType | null
-  }
-
-  type AddressType = {
-    city?: string //НЕОБЯЗАТЕЛЬНОЕ ПОЛЕ
-    country: string //ОБЯЗАТЕЛЬНОЕ ПОЛЕ
   }
 
   let user: UserType = {
@@ -81,7 +81,7 @@ const GET_TASKS = "APP/Get_TASKS";
 
 type ActionType = {
   id: number
-  type: typeof GET_TASKS
+  type: typeof GET_TASKS //обратить внимание на объявление через typeof
 }
 
 let action: ActionType = {
